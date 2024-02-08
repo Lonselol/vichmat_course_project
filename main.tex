@@ -1,0 +1,33 @@
+\documentclass[14pt, a4paper, fleqn, titlepage]{extarticle}
+\usepackage{style/style}
+\usepackage{lipsum}
+\usepackage{pdfpages}
+\usepackage{xr}
+
+\begin{document}
+
+    \includepdf[pages=1]{parts/TitlePage.pdf}
+    \pagebreak
+
+    \tableofcontents
+    \pagebreak
+
+    \input{parts/introduction.tex}
+    \pagebreak
+
+    \input{parts/methods.tex}
+    \pagebreak
+
+    \input{parts/conclusion.tex}
+    \pagebreak
+
+    \input{parts/sources.tex}
+    \pagebreak
+
+    \input{parts/codes.tex}
+    \pagebreak
+
+    \input{parts/tasks.tex}
+    \pagebreak
+
+\end{document}

@@ -1,0 +1,59 @@
+\externaldocument{main_0}
+\subsection{Метод немонотонной прогонки}
+Алгоритм состоит из двух шагов: прямой и обратных ход:
+\subsubsection{Прямой ход}
+На этом этапе система \ref{eq:1_1} приводится к двухдиагональному виду и вычисляются прогоночные коэффициенты.
+
+\begin{enumerate}
+  \item Пусть \( \bar{\alpha_1}=B_1, \bar{\beta_1}=C_1, \bar{\gamma}=F_1\) (первое уравнение системы \ref{eq:1_1} имеет двухчленный вид)
+  \item Тогда первое уравнение примет вид:
+        \[\alpha_1 U_1 + \beta_1 U_2 = \gamma_1, \text{где} \alpha_1=\frac{\bar{\alpha_1}}{\lambda_1}, 
+        \beta_1=\frac{\bar{\beta_1}}{\lambda_1}, \gamma_1=\frac{\bar{\gamma_1}}{\lambda_1}, 
+        \lambda_1=\text{max(\( |\bar{\alpha_1}| |\bar{\beta_1}| |\bar{\gamma_1}| \))}\]
+        Т.к. коэффициенты \(\alpha_1, \beta_1, \gamma_1\) определены с точностью до произвольного множителя, то мы делим их на \(\lambda_1\), чтобы по модулю они не были больше единицы.
+  \item Пусть \((k-1)\)-е уравнение имеет двухчленный вид \label{eq:5_1} \[\alpha_{k-1}U_{k-1}+\beta_{k-1}U_k=\gamma_{k-1}\]
+  \item Уберём из \(k\)-го уравнения системы \ref{eq:1_1} \(U_{k-1}\):
+        \[A_k \left( -\frac{\beta_{k-1}}{\alpha_{k-1}}U_k + \frac{\gamma_{k-1}}{\alpha_{k-1}} \right) + B_k U_k + C_k U_{k+1} = F_k\]
+  \item Отсюда получаем: \[\left(B_k-A_k \frac{\beta_{k-1}}{\alpha_{k-1}}\right) U_k+C_k U_{k+1}=F_k-A_k \frac{\gamma_{k-1}}{\alpha_{k-1}}\]
+  \item Домножаем на \(\alpha_{k-1}\) и получаем \[\left(B_k \alpha_{k-1}-A_k \beta_{k-1} \right) U_k+\alpha_{k-1} C_k U_{k+1}=F_k \alpha_{k-1}-A_k \gamma_{k-1}\]
+  \item Пусть: \label{eq:5_2}
+        \[\bar{\alpha_k} = \alpha_{k-1}B_k - \beta_{k-1}A_k\]
+        \[\bar{\beta_k} = \alpha_{k-1}C_k\]
+        \[\bar{\gamma_k} = \alpha_{k-1}F_k - \gamma_{k-1}A_k\]
+  \item После нормировки получим соотношение: \[\alpha_k U_k + \beta_k U_{k+1} = \gamma_k\] \label{eq:5_3}
+  \item Где \label{eq:5_4}\[
+        \alpha_1=\frac{\bar{\alpha_1}}{\lambda_1}, 
+        \beta_1=\frac{\bar{\beta_1}}{\lambda_1},
+        \gamma_1=\frac{\bar{\gamma_1}}{\lambda_1}, 
+        \lambda_1=\text{max(\( |\bar{\alpha_1}| |\bar{\beta_1}| |\bar{\gamma_1}| \))}
+        \]
+\end{enumerate}
+Строим прогоночные коэффициенты для \(k=2,3,...,N-1\) по формулам из П.\ref{eq:5_2} и П.\ref{eq:5_4}
+
+\subsubsection{Обратный ход}
+\(N\)-е уравнение системы \ref{eq:1_1} не участвовало на этапе прямого хода.
+Пусть \(k=N-1\). Того оно вместе с соотношением из П.\ref{eq:5_2} образует систему:
+\[
+  \begin{cases}
+    A_N U_{N-1} + B_N U_N = F_N,
+    \\
+    \alpha_{N-1} U_{N-1} + \beta_{N-1} U_N = \gamma_{N-1}
+  \end{cases}  
+\]
+Из этой системы найдём значения \(U_N\) и \(U_{N-1}\):
+\[
+  U_N = \frac{A_N \gamma_{N-1} - \alpha_{N-1} F_N}{A_N\beta_{N-1}-\alpha_{N-1}B_N}
+\]
+\[
+  U_{N-1} = \frac{F_N\beta_{N-1}-\gamma_{N-1}B_N}{A_N \beta_{N-1} - \alpha_{N-1}B_N}
+\]
+Рассматривая матрицу системы из П.\ref{eq:5_3}, можно выделить 3 блока:
+\begin{enumerate}
+  \item Строки, образующие блоки, для которых \(|\bar{\alpha_i}| \geq |\bar{\beta_i}|\)
+  \item Строки, образующие блоки, для которых \(0<|\alpha_i|<|\beta_i|\). 
+  \item Строки, в которых \(\alpha_i=0\)
+\end{enumerate}
+
+Для блоков первого типа вычисляем значения искомого решения по формулам из П.\ref{eq:5_3}.
+В блоках третьего типа с помощью соответствующих уравнений системы \ref{eq:1_1}.
+Если \(a_k=0, k=i\), то \(U_i=\frac{F_{i+1}-B_{i+1}U_{i+1}-C_{i+1}U_{i+2}}{A_{i+1}}\)

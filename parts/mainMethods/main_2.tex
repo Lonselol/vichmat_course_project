@@ -1,0 +1,52 @@
+\externaldocument{main_0}
+\subsection{Модифицированный метод монотонной прогонки}
+Алгоритм состоит из двух шагов: прямой и обратных ход:
+
+\subsubsection{Прямой ход}
+На этом этапе система \ref{eq:1_1} приводится к двухдиагональному виду и вычисляются прогоночные коэффициенты.
+\begin{enumerate}
+  \item Пусть \( \bar{\alpha_1}=B_1, \bar{\beta_1}=C_1, \bar{\gamma}=F_1\) \label{eq:3_1} (первое уравнение системы \ref{eq:1_1} имеет двухчленный вид)
+  \item Тогда первое уравнение системы \ref{eq:1_1} примет вид:
+    \[\alpha_1 U_1 + \beta_1 U_2 = \gamma_1, \text{где} \alpha_1=\frac{\bar{\alpha_1}}{\lambda_1}, 
+    \beta_1=\frac{\bar{\beta_1}}{\lambda_1}, \gamma_1=\frac{\bar{\gamma_1}}{\lambda_1}, 
+    \lambda_1=\text{max(\( |\bar{\alpha_1}| |\bar{\beta_1}| |\bar{\gamma_1}| \))}\]
+    Т.к. коэффициенты \(\alpha_1, \beta_1, \gamma_1\) определены с точностью до произвольного множителя, то мы делим их на \(\lambda_1\), чтобы по модулю они не были больше единицы.
+  \item Пусть (\(k-1\))-е уравнение было приведено к двучленному виду \label{eq:3_2} \[\alpha_{k-1}U_{k-1}+\beta_{k-1}U_k=\gamma{k-1}\]
+  \item Уберём \(U_{k-1}\) из \(k\)-го уравнения \ref{eq:1_1}, подставив в него соотношение из П.\ref{eq:3_2}
+        \[A_K\left(-\frac{\beta_{k-1}}{\alpha_{k-1}}U_k+\frac{\gamma_{k-1}}{\alpha_{k-1}}\right) + B_k U_k + C_k U_{k+1} = F_k\]
+        Получаем: \[\left(B_k-A_k\frac{\beta_{k-1}}{\alpha_{k-1}}\right) U_k +C_k U_{k+1} = F_k - A_k \frac{\gamma_{k-1}}{\alpha_{k-1}}\]
+        Домножим на \(\alpha_{k-1}\) и получим: \[\left(\alpha_{k-1}B_k-\beta_{k-1}A_k\right)U_k+\alpha_{k-1}C_kU_{k+1}=\alpha_{k-1}F_k-\gamma_{k-1}A_k\]
+  \item Пусть \label{eq:3_3}
+        \[\bar{\alpha_{k}}=\alpha_{k-1}B_k-\beta_{k-1}A_k\]
+        \[\bar{\beta_{k}}=\alpha_{k-1}C_k\]
+        \[\bar{\gamma_{k}}=\alpha_{k-1}F_k-\gamma_{k-1}A_k\]
+  \item После нормировки получим соотношение:
+        \[\alpha_k U_k + \beta_k U_{k+1} = \gamma_k\] \label{eq:3_4}
+        где \(
+          \alpha_k=\frac{\bar{\alpha_k}}{\lambda_k},
+          \beta_k=\frac{\bar{\beta_k}}{\lambda_k},
+          \gamma_k=\frac{\bar{\gamma_k}}{\lambda_k},
+          \lambda_k=\text{max(\( |\bar{\alpha_k}| |\bar{\beta_k}| |\bar{\gamma_k}| \))}
+        \) \label{eq:3_5}
+\end{enumerate}
+Строим прогоночные коэффициенты для \(k=2,3,...,N-1\) по формулам из П.\ref{eq:3_3} и П.\ref{eq:3_5}
+
+\subsubsection{Обратный ход}
+\(N\)-е уравнение системы \ref{eq:1_1} не участвовало на этапе прямого хода.
+Пусть \(k=N-1\). Того оно вместе с соотношением из П.\ref{eq:3_4} образует систему:
+\[
+  \begin{cases}
+    A_N U_{N-1} + B_N U_N = F_N,
+    \\
+    \alpha_{N-1} U_{N-1} + \beta_{N-1} U_N = \gamma_{N-1}
+  \end{cases}  
+\]
+Из этой системы найдём значения \(U_N\) и \(U_{N-1}\):
+\[
+  U_N = \frac{A_N \gamma_{N-1} - \alpha_{N-1} F_N}{A_N\beta_{N-1}-\alpha_{N-1}B_N}
+\]
+\[
+  U_{N-1} = \frac{F_N\beta_{N-1}-\gamma_{N-1}B_N}{A_N \beta_{N-1} - \alpha_{N-1}B_N}
+\]
+
+\(U_i, i=N-2,N-3,...,1\) находятся из соотношения из П.\ref{eq:3_4}. Если \(\alpha_i=0, i=N-2,...,1\), то \(U_i\) ищется их \(i+1\)-го уравнения системы \ref{eq:1_1}: \(A_{i+1}U_i+B_{i+1}U_{i+1}+C_{i+1}U_{i+2}=F_{i+1}\)

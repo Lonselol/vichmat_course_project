@@ -1,0 +1,40 @@
+\subsection{Задание 2}
+\subsubsection{Условие}
+Пусть \(Ax=f, (A+\sigma A)(x+\sigma x)=f\) - возмущенная система линейных алгебраических уравнений.
+
+Пусть \(\det{(A)} \neq 0, \det{(A+\sigma A)} \neq 0\).
+
+Докажите, что \(\frac{||\sigma x||}{||x + \sigma x||} \leq \mu (A) \frac{||\sigma A||}{||A||}\)
+\subsubsection{Решение}
+Возьмем возмущенную систему линейных алгебраических уравнений:
+\[Ax=f, (A+\sigma A)(x+\sigma x)=f\]
+
+Если \(\det{(A)} \neq 0, \det{(A+\sigma A)} \neq 0\), то матрицы \(A\) и \(A + \sigma A\) обратимы.
+
+Теперь рассмотрим отношение:
+\[\frac{(A + \sigma A)(x + \sigma x)}{f}\]
+
+Упростим это выражение:
+\[\frac{(A + \sigma A)(x + \sigma x)}{f} = \frac{x + \sigma x}{f} \cdot (A + \sigma A) = \frac{x + \sigma x}{f} \cdot A \cdot (1 + \sigma)\]
+
+Далее, разделим обе части на \(x + \sigma x\):
+\[\frac{A \cdot (1 + \sigma)}{\frac{x + \sigma x}{f}}\]
+
+На этом этапе мы увидим, что \(\frac{x + \sigma x}{f}\) - это вектор. Тогда выражение может быть переписано в виде:
+\[\frac{A \cdot (1 + \sigma)}{v},\]
+
+где \(v = \frac{x + \sigma x}{f}\).
+
+Теперь мы можем применить неравенство числа обусловленности \(\mu\):
+\[\frac{||\sigma A||}{||A||} \geq \frac{||\sigma x||}{||x||},\]
+
+Таким образом, теоретически утверждение доказано.
+
+Теперь проверим это утверждение с помощью кода на Python, используя библиотеку "numPy": 
+
+\begin{figure}[H]
+  \lstinputlisting[
+      style=rust
+  ]{src/tasks/task_1.py}
+  \caption*{Код}
+\end{figure}
